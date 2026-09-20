@@ -1,0 +1,4 @@
+import jwt from 'jsonwebtoken';
+const demo={id:'demo-user',name:'Lavanya R',email:'demo@aquaguard.ai',password:'Demo@123'};
+export function login(req,res){ const {email,password}=req.body; if(email===demo.email&&password===demo.password){ const token=jwt.sign({id:demo.id,email:demo.email,name:demo.name},process.env.JWT_SECRET||'dev-secret',{expiresIn:'7d'}); return res.json({token,user:{id:demo.id,name:demo.name,email:demo.email}}); } return res.status(401).json({message:'Invalid email or password'}); }
+export function register(req,res){ const {name,email}=req.body; if(!name||!email) return res.status(400).json({message:'Name and email are required'}); const token=jwt.sign({id:'local-'+Date.now(),email,name},process.env.JWT_SECRET||'dev-secret',{expiresIn:'7d'}); res.json({token,user:{id:'local-'+Date.now(),name,email}}); }

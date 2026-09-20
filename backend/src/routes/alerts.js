@@ -1,0 +1,1 @@
+import {Router} from 'express'; import {auth} from '../middleware/auth.js'; const r=Router(); r.get('/',auth,(req,res)=>res.json(req.app.locals.alerts||[])); r.patch('/:id/resolve',auth,(req,res)=>{const a=(req.app.locals.alerts||[]).find(x=>x.id===req.params.id); if(!a)return res.status(404).json({message:'Alert not found'}); a.status='resolved'; res.json(a)}); export default r;

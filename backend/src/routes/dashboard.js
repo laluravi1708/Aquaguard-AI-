@@ -1,0 +1,1 @@
+import {Router} from 'express'; import {auth} from '../middleware/auth.js'; import {summary} from '../controllers/dashboardController.js'; const r=Router(); r.get('/summary',auth,summary); export default r;
